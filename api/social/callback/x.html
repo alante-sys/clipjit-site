@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
+<title>ClipJit — returning to ClipJit</title>
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#070908;color:#e8efe9;font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;padding:0 20px}p{color:#b9c2bd}</style>
+</head>
+<body>
+<main><p>Returning you to ClipJit…</p></main>
+<script>
+// Local-development OAuth bridge for ClipJit's X (Twitter) connection. X only accepts https callback URLs (or 127.0.0.1,
+// where your ClipJit sign-in isn't available), so X returns here, and this page forwards only the OAuth response
+// parameters to ClipJit running on this computer. Nothing is stored or logged.
+(function () {
+  var allowed = ["code", "state", "error", "error_description"];
+  var src = new URLSearchParams(window.location.search);
+  var out = new URLSearchParams();
+  allowed.forEach(function (k) { var v = src.get(k); if (v !== null) out.set(k, v); });
+  window.location.replace("http://localhost:3000/api/social/callback/x" + (out.toString() ? "?" + out.toString() : ""));
+})();
+</script>
+</body>
+</html>
